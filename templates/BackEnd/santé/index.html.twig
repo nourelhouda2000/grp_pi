@@ -1,0 +1,46 @@
+{% extends 'BackEnd/baseEnd.html.twig' %}
+{% block title %} add {% endblock %}
+{% block bd %}
+<div id="wrapper">
+        <!-- Content Wrapper -->
+        
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ajouter Analyses</h6>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Form Start -->
+                                
+                                    {{ form_start(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+                                    <div class="form-group">
+                                        {{ form_row(f.maladie, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(f.medicament, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(f.calories, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                   
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">save</button>
+                                    </div>
+                                    {{ form_end(f) }}
+                                    <!-- Form End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+        </div>
+  {% endblock %}
+

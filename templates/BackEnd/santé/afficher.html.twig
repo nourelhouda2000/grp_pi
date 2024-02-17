@@ -1,0 +1,68 @@
+{% extends 'BackEnd/baseEnd.html.twig' %}
+{% block bd %}
+   <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Afficher Analyses</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <a href="{{ path('ajouterFS') }}" class="btn btn-Add">Ajouter Sante</a>
+        <tr>
+            
+            <th>Maladie</th>
+            <th>Medicament</th>
+            <th>Calories</th>
+            
+            
+           
+            <th>Actions</th> <!-- Rename the table header to "Actions" -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in response %}
+            <tr>
+                <td>{{ t.maladie }}</td>
+                <td>{{ t.medicament }}</td>
+                <td>{{ t.calories }}</td>
+                
+                
+                
+                <td>
+                    <a href="{{ path('updateES', {'id': t.id}) }}" class="btn btn-update">Update</a>
+                     <a href="{{ path('removeES', {'id': t.id}) }}" class="btn btn-delete">Remove</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+   
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 5px;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .btn-update {
+        background-color: #007bff;
+        color: #fff;
+    }
+ .btn-Add {
+        background-color: #007bff;
+        color: #fff;
+    }
+    .btn-delete {
+        background-color: #fa0505;
+        color: #fff;
+    }
+</style>
+{% endblock %}
