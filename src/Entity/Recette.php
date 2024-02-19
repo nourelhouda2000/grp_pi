@@ -17,15 +17,19 @@ class Recette
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank(message: "nom not selected")]
+    #[Assert\Length(
+        min: 3,
+        minMessage: "nom must have at least {{ limit }} characters"
+    )]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank(message: "ingredient not selected")]
     private ?string $ingredient = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank(message: "category not selected")]
     private ?string $category = null;
 

@@ -58,30 +58,30 @@
 
             <!-- Nav Item - activite Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/afficher" data-target="#collapseTwo"
                
                     <span>Activite</span>
                 </a>
                 
             </li>
-
+     <!-- Nav Item - Reclamations Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/afficherRecette"  data-target="#collapseUtilities"
+                   
+                    <span>Recette</span>
+                </a>
+               
+            </li>
             <!-- Nav Item - sante Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#"  data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="/afficher"  data-target="#collapseUtilities"
                    
                     <span>Nutrition</span>
                 </a>
                
             </li>
 
-              <!-- Nav Item - Reclamations Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ path('afficher') }}"  data-target="#collapseUtilities"
-                   
-                    <span>Reclamations</span>
-                </a>
-               
-            </li>
+         
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -348,9 +348,15 @@
                         <div class="col-md-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Afficher Nutritions</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Afficher Recettes</h6>
                                 </div>
                                 <div class="card-body">
+                                                                 <!-- colspan="4" pour occuper toutes les colonnes du tableau -->
+    <div style="font-size: 24px;"> <!-- Changer la taille du texte à 24px -->
+        <a class="btn btn-primary btn-lg" href="{{ path('ajouterRecette') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter</a> <!-- Utiliser btn-lg pour un bouton plus grand -->
+
+                                    </div>
+                                    <br/>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
@@ -360,6 +366,7 @@
                                                      <th>ingredient</th>
                                                     <th>nom</th>
                                                     <th>nutritions</th>
+                                                    <th>Action</th>
                                                  
                                                 </tr>
                                             </thead>
@@ -375,8 +382,10 @@
                                                     
                                                     <td>
                                                       
-                                                        <a class="btn btn-primary btn-sm" href="{{ path('modifierRecette', {'id': t.id}) }}">modifierRecette</a>
-                                                          <a class="btn btn-primary btn-sm" href="{{ path('supprimerRecette', {'id': t.id}) }}">supprimer</a>
+<a class="btn btn-primary btn-sm" href="{{ path('modifierRecette', {'id': t.id}) }}" style="background: transparent; width: 100%;">
+    <i class="fas fa-edit" style="color: blue;"></i>
+</a>
+                                                          <a class="btn btn-primary btn-sm" href="{{ path('supprimerRecette', {'id': t.id}) }}" style="background: transparent; width: 100%;"><i class='fas fa-trash-alt' style='color:red'></i></a>
 
 
 
@@ -404,8 +413,7 @@
         </tr>
                                             </tbody>
                                         </table>
-                                    </div>
-                                    
+        
                                     <!-- Table End -->
                                 </div>
                             </div>

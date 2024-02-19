@@ -67,16 +67,16 @@
 
             <!-- Nav Item - sante Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#"  data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="/afficherRecette"  data-target="#collapseUtilities"
                    
-                    <span>Nutrition</span>
+                    <span>Recette</span>
                 </a>
                
             </li>
 
               <!-- Nav Item - Reclamations Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ path('afficher') }}"  data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="/afficher"  data-target="#collapseUtilities"
                    
                     <span>Nutrition</span>
                 </a>
@@ -361,6 +361,7 @@
                                                     <th>proteines</th>
                                                     <th>lipides</th>
                                                     <th>fibres</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -375,8 +376,8 @@
                                                     <td>{{ t.fibres}}</td>
                                                     <td>
                                                       
-                                                        <a class="btn btn-primary btn-sm" href="{{ path('modifier', {'id': t.id}) }}">Modifier</a>
-                                                          <a class="btn btn-primary btn-sm" href="{{ path('supprimer', {'id': t.id}) }}">Supp</a>
+                                                        <a class="btn btn-primary btn-sm" href="{{ path('modifier', {'id': t.id}) }}" style="background: transparent; width: 100%;">   <i class="fas fa-edit" style="color: blue;"></i></a>
+                                                          <a class="btn btn-primary btn-sm" href="{{ path('supprimer', {'id': t.id}) }}" style="background: transparent; width: 100%;"><i class='fas fa-trash-alt' style='color:red'></i></a>
 
 
                                                     </td>
@@ -386,16 +387,17 @@
                                                 <tr>
                                                 <div>
            <tr>
-    <td colspan="4" class="text-center"> <!-- colspan="4" pour occuper toutes les colonnes du tableau -->
-    <div style="font-size: 24px;"> <!-- Changer la taille du texte à 24px -->
-        <a class="btn btn-primary btn-lg" href="{{ path('ajouter') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter</a> <!-- Utiliser btn-lg pour un bouton plus grand -->
-</td>
+
 
 </tr>
 
         </tr>
                                             </tbody>
                                         </table>
+                                         <!-- colspan="4" pour occuper toutes les colonnes du tableau -->
+    <div style="font-size: 24px;"> <!-- Changer la taille du texte à 24px -->
+        <a class="btn btn-primary btn-lg" href="{{ path('ajouter') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter</a> <!-- Utiliser btn-lg pour un bouton plus grand -->
+
                                     </div>
                                     
                                     <!-- Table End -->
