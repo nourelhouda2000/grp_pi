@@ -1,0 +1,45 @@
+{% extends 'rendezvous/FrontEnd/basefD.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                {% if response %}
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold" style="color: #66CDAA;">Bonjour! Madame,Monsieur voici la liste des rendez vous</h6> <!-- Utilisation de la relation many-to-one avec User pour obtenir le nom de l'utilisateur -->
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rendezvous in response %}
+                                <tr>
+                                    <td>{{ rendezvous.dateR }}</td>
+                                    <td>{{ rendezvous.heur }}</td>
+                                    
+                                
+
+                               
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <tr>
+                       
+                    </tr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

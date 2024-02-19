@@ -1,0 +1,65 @@
+{% extends 'rendezvous/end/baseend.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block bd %}      
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                {% if response %}
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bonjour! la liste des rendez vous</h6>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Nom </th>
+                                    <th>Prenom </th>
+                                    <th>Rapport </th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in response %}
+                                <tr>
+                                    <td>{{ t.idR }}</td>
+                                    <td>{{ t.dateR }}</td>
+                                    <td>{{ t.heur }}</td>
+                                    <td>{{ t.nomuser }}</td>
+                                     <td>{{ t.Prenomuser}}</td>
+                                     <td>{{ t.Rapport}}</td>
+                                    <td>
+                                        
+                                        <a class="btn btn-primary btn-sm" href="{{ path('editRV', {'idR': t.idR}) }}">Modifier</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                            
+                        </table>
+                    </div>
+
+                    <tr>
+                                    <td colspan="4" class="text-center">
+                                    <div class="text-center mt-3">
+                                        <div style="font-size: 24px;">
+                                            <a class="btn btn-primary btn-lg" href="{{ path('rendez_vous') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter autre Rendez vous</a>
+                                        </div>
+                                    </div>
+                                    </td>
+                                </tr>
+                    <!-- Table End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

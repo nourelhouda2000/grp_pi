@@ -1,0 +1,69 @@
+{% extends 'rendezvous/end/baseend.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block bd %}  
+
+
+<div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+         <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Modifier un rendez-vous</h6>
+</div>
+ <div class="card-body">
+                                   <div class="card-body">
+                                    <!-- Form Start -->
+                                    {{ form_start(form) }}
+                                    <div class="form-group">
+                                        {{ form_row(form.nomuser, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.Prenomuser, {'label': 'Prénom', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.ageuser, {'label': 'Âge', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.sexe, {'label': 'Sexe', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.mdp, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_row(form.role, {'label': 'Rôle', 'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Confirmer</button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                    <!-- Form End -->
+                                </div>
+    </div>
+
+       </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>         
+
+
+
+
+
+{% endblock %}
