@@ -1,0 +1,57 @@
+{% extends 'rendezvous/FrontEnd/basef.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block body %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div id="wrapper">
+    <!-- Content Wrapper -->
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="row justify-content-center"> <!-- Center the row -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                   
+                        <div class="card-header py-3">
+                            <h3 class="m-0 font-weight-bold" style="color: #66CDAA; text-align: center;">Ajouter rendez-vous</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Form Start -->
+                            <div class="form-group">
+                                {{ form_label(form.dateR, 'Date du rendez-vous', {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateR, {'attr': {'class': 'form-control', 'placeholder': 'YYYY-MM-DD'}}) }}
+                                {{ form_errors(form.dateR) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.heur, 'Heure du rendez-vous', {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.heur, {'attr': {'class': 'form-control', 'placeholder': 'HH:MM'}}) }}
+                                {{ form_errors(form.heur) }}
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success" style="background-color: #66CDAA;">Confirmer le rendez-vous</button> 
+                            </div>
+                             
+                                   <div class="text-center mt-3">
+                                <a href="{{ path('afficherRDVF') }}" class="btn btn-primary" style="background-color: #66CDAA;">
+                                    <i class="fas fa-arrow-left"></i> Retour à Liste
+                                </a>
+                            
+                           </div>
+                            <!-- Form End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+</div>
+{{ form_end(form) }}
+
+
+
+{% endblock %}

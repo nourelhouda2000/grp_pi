@@ -1,0 +1,13 @@
+{% extends 'rendezvous/end/baseend.html.twig' %}
+{% block title %} Confirmation de suppression - Sante 180° {% endblock %}
+{% block bd %}  
+    <h1>Confirmation de suppression</h1>
+    <p>Êtes-vous sûr de vouloir supprimer ce rendez-vous et le rapport associé ?</p>
+    
+   {{ form_start(form) }}
+    {{ form_row(form.confirmation) }}
+    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+    <a href="{{ path('afficher') }}" class="btn btn-secondary">Annuler</a>
+{{ form_end(form) }}
+
+{% endblock %}

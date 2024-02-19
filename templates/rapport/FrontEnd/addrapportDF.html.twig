@@ -1,0 +1,52 @@
+{% extends 'rapport/FrontEnd/basefD.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block body %} 
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div id="wrapper">
+    <!-- Content Wrapper -->
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                     <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold" style="color: #008000;">Ajouter Rapport</h6> <!-- Changement de couleur en vert -->
+                            </div>
+                            <div class="card-body">
+                                <!-- Form Start -->
+    
+                                <div class="form-group">
+                                    {{ form_label(form.idR, 'Id rendez-vous', {'label_attr': {'class': 'control-label big-label'}}) }}
+                                    {{ form_widget(form.idR, {'attr': {'class': 'form-control', 'style': 'font-size: 20px;'}}) }}
+                                    {{ form_errors(form.idR) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(form.Rapport, 'Rapport pour utilisateur', {'label_attr': {'class': 'control-label big-label'}}) }}
+                                    {{ form_widget(form.Rapport, {'attr': {'class': 'form-control', 'style': 'font-size: 20px;'}}) }}
+                                    {{ form_errors(form.Rapport) }}
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success" style="background-color: #008000;">Confirmer</button> <!-- Changement de couleur en vert -->
+                                </div>
+                                
+                                    <div class="text-center mt-3">
+                                <a href="{{ path('afficherrapportFD') }}" class="btn btn-primary" style="background-color: #008000;"> <!-- Changement de couleur en vert -->
+                                    <i class="fas fa-arrow-left"></i> Retour à Liste
+                                </a>
+                            </div>
+                                <!-- Form End -->
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+</div>
+{{ form_end(form) }}
+{% endblock %}

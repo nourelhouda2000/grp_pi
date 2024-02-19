@@ -1,0 +1,52 @@
+{% extends 'rendezvous/FrontEnd/basef.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                {% if response %}
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold" style="color: #66CDAA;">Bonjour! Madame,Monsieur voici la liste des rendez vous</h6> <!-- Utilisation de la relation many-to-one avec User pour obtenir le nom de l'utilisateur -->
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rendezvous in response %}
+                                <tr>
+                                    <td>{{ rendezvous.dateR }}</td>
+                                    <td>{{ rendezvous.heur }}</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm"  href="{{ path('rmRDVF', {'idR': rendezvous.idR}) }}">Annuler</a>
+                                        <a class="btn btn-success btn-sm" href="{{ path('editRVF', {'idR': rendezvous.idR}) }}" style="background-color: #66CDAA;">Modifier</a>
+                                        <a class="btn btn-success btn-sm" href="{{ path('afficherrapportF', {'idR': rendezvous.idR}) }}" style="background-color: #66CDAA;">Rapport</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <div class="text-center mt-3">
+                                <div style="font-size: 24px;">
+                                    <a class="btn btn-success btn-lg" href="{{ path('rendez_vousF') }}" style="padding: 15px 30px; font-size: 18px; background-color: #66CDAA;">Ajouter autre Rendez vous</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'rapport/FrontEnd/basefD.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block body %}   
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                {% if response %}
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-success">Rapports</h6> <!-- Changement de couleur en vert -->
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID Rapport</th>
+                                    <th>Prenom utilisateur</th>
+                                    <th>Nom utilisateur</th>
+                                    <th>Rapport</th>
+                                    <th>Date du rendez-vous</th>
+                                    <th>Heure du rendez-vous</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in response %}
+                                <tr>
+                                    <td>{{ t.idRapport }}</td>
+                                    <td>{{ t.idR.getPrenomUser() }}</td>
+                                    <td>{{ t.idR.getNomUser() }}</td>
+                                    
+                                    <td style="color: green;">{{ t.Rapport }}</td> <!-- Changement de couleur du texte en vert -->
+                                    <td>{{ t.idR.dateR }}</td>
+                                    <td>{{ t.idR.heur }}</td>
+                                    <td>
+                                        
+                                        <a class="btn btn-primary btn-sm" style="background-color: green;" href="{{ path('editrpD', {'idRapport': t.idRapport}) }}">Modifier</a> <!-- Changement de couleur du bouton en vert -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <tr>
+                     <div class="text-center mt-3">
+                        <td colspan="5" class="text-center">
+                         <div style="font-size: 24px;">
+                            <a class="btn btn-primary btn-sm" style="background-color: green; padding: 15px 30px; font-size: 18px;" href="{{ path('addrapporttFD') }}">Ajouter autre Rapport</a> <!-- Changement de couleur du bouton en vert -->
+                             </div>
+                        </td>
+ 
+                                    </div>
+
+                        
+                    </tr>
+                    <!-- Table End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

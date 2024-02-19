@@ -1,0 +1,68 @@
+{% extends 'user/end/baseend.html.twig' %}
+
+{% block title %}
+    Liste des Utilisateurs
+{% endblock %}
+
+{% block bd %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Age</th>
+                                        <th>Sexe</th>
+                                        <th>Email</th>
+                                        <th>Rôle</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in response %}
+                                        <tr>
+                                            <td>{{ user.idUser }}</td>
+                                            <td>{{ user.nomuser }}</td>
+                                            <td>{{ user.Prenomuser }}</td>
+                                            <td>{{ user.ageuser }}</td>
+                                            <td>{{ user.sexe }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>
+                                                {% if user.role == 0 %}
+                                                    Admin
+                                                {% elseif user.role == 1 %}
+                                                    Doctor
+                                                {% elseif user.role == 2 %}
+                                                    Patient
+                                                {% else %}
+                                                    {{ user.role }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="{{ path('rmuser', {'idUser': user.idUser}) }}">Supprimer</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ path('edituser', {'idUser': user.idUser}) }}">Modifier</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a class="btn btn-primary btn-lg" href="{{ path('ajouteruser') }}" style="font-size: 18px;">Ajouter autre un Utilisateur</a>
+                        </div>
+                        <!-- Table End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
