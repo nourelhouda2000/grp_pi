@@ -1,0 +1,139 @@
+{% extends 'reclamations/FrontEnd/basef.html.twig' %}
+
+{% block body %}
+
+   <div class="container-fluid">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8">
+
+                <div class="card shadow mb-4">
+
+                    <div class="card-header py-3">
+
+                        <h6 class="m-0 font-weight-bold text-primary">Afficher reclamation</h6>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+    <thead>
+
+    <a href="{{ path('addE') }}" class="btn btn-Add">Ajouter reclamation</a>
+
+        <tr>
+
+            <th>id Reponse</th>
+             <th>reponse</th>
+            <th>date de reclamation</th>
+
+           
+
+            
+
+            <th>notereponse</th>
+
+            <th>reclamation</th>
+
+           
+
+           
+
+           
+
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for t in response %}
+
+            <tr>
+
+                <td>{{ t.idrep }}</td>
+                 <td>{{ t.description }}</td>
+
+           
+
+              <td>{{ t.daterec.format('Y-m-d H:i:s') }}</td> {# Adjust the format as needed #}
+
+                     <td>{{ t.notereponse }}</td>
+              <td>{{ t.reclamations }}</td>
+
+               
+
+              
+
+               
+
+                
+
+                
+                 <a href="{{ path('afficherE') }}" class="btn btn-Add">voir reclamation </a>
+
+            </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+ 
+
+<style>
+
+  
+
+ 
+
+    .btn {
+
+        display: inline-block;
+
+        padding: 6px 12px;
+
+        margin: 5px;
+
+        text-decoration: none;
+
+        border-radius: 4px;
+
+    }
+
+ 
+
+    .btn-update {
+
+        background-color: #007bff;
+
+        color: #fff;
+
+    }
+
+.btn-Add {
+
+        background-color: #007bff;
+
+        color: #fff;
+
+    }
+
+    .btn-delete {
+
+        background-color: #fa0505;
+
+        color: #fff;
+
+    }
+
+</style>
+
+{% endblock %}
