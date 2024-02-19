@@ -1,0 +1,53 @@
+{% extends 'FrontEnd/basef.html.twig' %}
+
+{% block body %}
+<section class="contact_section layout_padding-bottom">
+    <div class="container">
+        <div class="heading_container">
+            <h2>Nos Exercices</h2>
+        </div>
+        
+        <div class="form_container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOM</th>
+                        <th>DESCRIPTION</th>
+                        <th>Nombre_Repetion</th>
+                        <th>NIVEAU</th> 
+                        <th>Activite</th> 
+                        <th>ACTIONS</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in response %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.nom }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.nombreRepetition }}</td>
+                        <td>{{ t.niveau }}</td> 
+                        <td>{{ t.Activite }}</td> 
+                        <td><!-- Actions --></td>
+                         <td>
+            <a class="btn btn-danger btn-sm"  href="{{ path('removeFE', {'id': t.id}) }}">Supprimer</a>
+            <a class="btn btn-primary btn-sm" href="{{ path('updateFE', {'id': t.id}) }}">Modifier</a>
+        </td>
+                    </tr>
+                   
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-5">
+            <div class="img-box">
+            <a class="btn btn-primary btn-lg mr-2" href="{{ path('AddFEX') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter</a> <!-- Ajoutez une marge à droite pour l'espace entre les boutons -->
+                <img src="{{ asset('/FrontEnd/images/contact-img.jpg') }}" alt="">
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

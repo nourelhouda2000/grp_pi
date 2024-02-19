@@ -1,0 +1,43 @@
+{% extends 'BackEnd/baseend.html.twig' %}
+
+{% block title %} Liste des activités Triés {% endblock %}
+
+{% block bd %}
+<div id="wrapper">
+    <!-- Content Wrapper -->
+        
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <h1>Liste des activités Triés</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Catégorie</th>
+                        <th>Niveau</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activite in activites %}
+                        <tr>
+                            <td>{{ activite.nom }}</td>
+                            <td>{{ activite.description }}</td>
+                            <td>{{ activite.categorie }}</td>
+                            <td>{{ activite.niveau }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Ajouter le bouton de retour ici -->
+            <div class="text-center">
+                <a href="{{ path('afficher') }}" class="btn btn-secondary">Retour à la liste complète</a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+</div>
+{% endblock %}

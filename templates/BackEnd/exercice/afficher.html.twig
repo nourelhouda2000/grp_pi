@@ -1,0 +1,103 @@
+{% extends 'BackEnd/baseend.html.twig' %}
+
+{% block title %} affiche {% endblock %}
+
+{% block bd %}
+
+<!-- Begin Page Content rendez vous -->
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="mb-3">
+                    <a class="btn btn-secondary" href="{{ path('indexx') }}">
+                        <i class="fas fa-arrow-left"></i> Retour à la page principale
+                    </a>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Afficher les exercices</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOM</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>NIVEAU</th>
+                                        <th>NombreRepetition</th>
+                                        <th>Activite</th>
+                                        <th>Actions</th>  
+                                        <th></th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for t in response %}
+                                    <tr>
+                                        <td>{{ t.id }}</td>
+                                        <td>{{ t.nom }}</td>
+                                        <td>{{ t.description }}</td>
+                                        <td>{{ t.niveau }}</td>
+                                        <td>{{ t.nombreRepetition }}</td>
+                                        <td>{{ t.activite }}</td> 
+                                        <td>
+                                            <a class="btn btn-danger btn-sm" href="{{ path('remove', {'id': t.id}) }}">
+                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                            </a>
+                                            <a class="btn btn-primary btn-sm" href="{{ path('update', {'id': t.id}) }}">
+                                                <i class="fas fa-edit"></i> Modifier
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            <div style="font-size: 24px;">
+                                                <a class="btn btn-primary btn-lg" href="{{ path('addFE') }}" style="padding: 15px 30px; font-size: 18px;">
+                                                    <i class="fas fa-plus-circle"></i> Ajouter
+                                                </a>
+                                                <a class="btn btn-success btn-lg" href="{{ path('statistiques_niveau') }}" style="padding: 15px 30px; font-size: 18px;">
+                                                            <i class="fas fa-chart-line"></i> Statistiques
+                                                        </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Table End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
