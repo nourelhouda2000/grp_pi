@@ -1,54 +1,57 @@
-
-{% extends 'rendezvous/end/baseend.html.twig' %}
-{% block title %} Ajouter rendez-vous {% endblock %}
+{% extends 'rapport/end/baseend.html.twig' %}
+{% block title %}Ajouter rendez-vous{% endblock %}
 {% block bd %}
 
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-<div id="wrapper">
-    <!-- Content Wrapper -->
-
-    <!-- Main Content -->
-    <div id="content">
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                     <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Ajouter Rapport</h6>
-                            </div>
-                            <div class="card-body">
-                                <!-- Form Start -->
-    
-                                <div class="form-group">
-                                    {{ form_label(form.idR, 'Id rendez-vous', {'label_attr': {'class': 'control-label big-label'}}) }}
-                                    {{ form_widget(form.idR, {'attr': {'class': 'form-control', 'style': 'font-size: 20px;'}}) }}
-                                    {{ form_errors(form.idR) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_label(form.Rapport, 'Rapport pour utilisateur', {'label_attr': {'class': 'control-label big-label'}}) }}
-                                    {{ form_widget(form.Rapport, {'attr': {'class': 'form-control', 'style': 'font-size: 20px;'}}) }}
-                                    {{ form_errors(form.Rapport) }}
-                                </div>
-                                
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Confirmer</button>
-                                </div>
-                                
-                                    <div class="text-center mt-3">
-                                <a href="{{ path('afficherrapport') }}" class="btn btn-primary">
-                                    <i class="fas fa-arrow-left"></i> Retour à Liste
-                                </a>
-                            </div>
-                                <!-- Form End -->
-                            </div>
-                        </div>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'rendezvous-form'}}) }}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10"> <!-- Utilisez col-lg-8 col-md-10 pour occuper la majorité de la largeur sur les grands écrans, mais pas tout -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ajouter Rapport</h6>
+                </div>
+                <div class="card-body">
+                    <!-- Form Start -->
+                    <div class="form-group">
+                        {{ form_label(form.idR, 'Id rendez-vous', {'label_attr': {'class': 'control-label big-label'}}) }}
+                        {{ form_widget(form.idR, {'attr': {'class': 'form-control', 'style': 'font-size: 20px;'}}) }}
+                        {{ form_errors(form.idR) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.Rapport, 'Rapport pour utilisateur', {'label_attr': {'class': 'control-label big-label'}}) }}
+                        {{ form_widget(form.Rapport, {'attr':  {'class': 'form-control comment-textarea'}}) }}
+                        {{ form_errors(form.Rapport) }}
+                    </div>
+                   
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
+                    </div>
+                    
+                    <!-- Form End -->
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- End of Main Content -->
 </div>
 {{ form_end(form) }}
+<script>
+    // Liste des mots inappropriés à vérifier
+    var badWords = ["null", "banal", "sexe","attaque","blessure","merde","salope"];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Événement de soumission du formulaire
+        document.querySelector('.rendezvous-form').addEventListener('submit', function(event) {
+            var commentField = document.querySelector('.comment-textarea').value.toLowerCase();
+            
+            for(var i = 0; i < badWords.length; i++) {
+                if(commentField.includes(badWords[i].toLowerCase())) { // Vérifier si le commentaire contient un mot inapproprié
+                    alert('Veuillez supprimer les mots inappropriés de votre commentaire.');
+                    event.preventDefault(); // Empêcher l'envoi du formulaire
+                    return false; // Arrêter la fonction
+                }
+            }
+            // Si aucun mot inapproprié n'est trouvé, autoriser l'envoi du formulaire
+        });
+    });
+</script>
 {% endblock %}

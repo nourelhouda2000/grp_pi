@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sante 180° - Rendez-Vous</title>
+    <style>
+        /* Styles pour le cadre vert */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px; /* Marge intérieure pour créer de l'espace entre le bord et le contenu */
+        }
+
+        /* Styles pour le titre */
+        h1 {
+            color: green; /* Couleur verte pour le titre */
+            text-align: center; /* Centrer le titre */
+            text-decoration: underline; /* Souligner le titre */
+        }
+
+        /* Styles pour les barres sous le titre */
+        .bar {
+            width: 100%;
+            height: 3px; /* Épaisseur de la barre */
+            background-color: green; /* Couleur verte pour les barres */
+            margin-top: 10px; /* Marge en haut des barres */
+            margin-bottom: 10px; /* Marge en bas des barres */
+        }
+
+        /* Styles pour le texte */
+        p {
+            color: #555; /* Couleur du texte */
+            margin-bottom: 10px; /* Marge en bas de chaque paragraphe */
+        }
+
+        /* Styles pour le bouton */
+        button {
+            background-color: #4CAF50; /* Couleur de fond du bouton */
+            color: white; /* Couleur du texte du bouton */
+            padding: 10px 20px; /* Rembourrage interne du bouton */
+            border: none; /* Supprimer la bordure du bouton */
+            border-radius: 5px; /* Ajouter une bordure arrondie au bouton */
+            cursor: pointer; /* Définir le curseur de la souris sur pointer lorsqu'il survole le bouton */
+        }
+
+        /* Styles pour le bouton survolé */
+        button:hover {
+            background-color: #45a049; /* Couleur de fond du bouton lorsqu'il est survolé */
+        }
+    </style>
+</head>
+<body>
+    <h1>Sante 180°</h1>
+    <div class="bar"></div> <!-- Première barre sous le titre -->
+    <div class="bar"></div> <!-- Deuxième barre sous le titre -->
+    <h2>Rendez-vous</h2> <!-- Titre secondaire -->
+    <p><b>Nom :</b> {{ rendezvous.nomuser }}</p>
+    <p><b>Prénom :</b> {{ rendezvous.Prenomuser }}</p>
+    <p><b>Date :</b> {{ rendezvous.dateR }}</p>
+    <p><b>Heure :</b> {{ rendezvous.heur }}</p>
+   
+    <!-- Ajoutez d'autres informations ici -->
+    
+    <!-- Bouton pour imprimer la page -->
+    <button onclick="window.print()">Imprimer cette page</button>
+</body>
+</html>

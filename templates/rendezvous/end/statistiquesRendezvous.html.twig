@@ -1,0 +1,55 @@
+{% extends 'rendezvous/end/baseend.html.twig' %}
+{% block title %} Statistiques des rendez-vous {% endblock %}
+{% block bd %}
+<div class="container-fluid">
+    <h1>Statistiques des rendez-vous par mois</h1>
+    <div id="rendezvous-count"></div> <!-- Ajout du div pour afficher le nombre de rendez-vous -->
+
+    <canvas id="chart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Récupérer les données passées depuis le contrôleur Symfony
+        const labels = [];
+        const data = [];
+
+        {% for mois, nombreRendezVous in rendezVousParMois %}
+            labels.push('{{ mois }}');
+            data.push('{{ nombreRendezVous }}');
+        {% endfor %}
+
+        // Afficher le nombre de rendez-vous
+        const rendezvousCountDiv = document.getElementById('rendezvous-count');
+        let totalRendezvous = 0;
+        data.forEach(count => {
+            totalRendezvous += parseInt(count);
+        });
+        rendezvousCountDiv.textContent = `Total de rendez-vous: ${totalRendezvous}`;
+
+        // Créer le diagramme
+        const ctx = document.getElementById('chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre de rendez-vous',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    </div>
+{% endblock %}

@@ -16,9 +16,9 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>ID Rapport</th>
-                                    <th>Prenom utilisateur</th>
-                                    <th>Nom utilisateur</th>
+                                   
+                                    <th>Prenom </th>
+                                    <th>Nom </th>
                                     <th>Rapport</th>
                                     <th>Date du rendez-vous</th>
                                     <th>Heure du rendez-vous</th>
@@ -28,7 +28,7 @@
                             <tbody>
                                 {% for t in response %}
                                 <tr>
-                                    <td>{{ t.idRapport }}</td>
+                                   
                                     <td>{{ t.idR.getPrenomUser() }}</td>
                                     <td>{{ t.idR.getNomUser() }}</td>
                                     

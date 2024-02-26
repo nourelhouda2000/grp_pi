@@ -16,13 +16,11 @@ class Rapport
     private ?int $idRapport = null;
 
     #[ORM\Column(length: 1500)]
-    /**
-    
-     * @Assert\NotBlank(message="Le champ Rapport ne peut pas être vide")
+    #[Assert\NotBlank(message:"Le champ Rapport ne peut pas être vide")]
   
      
      
-     */
+     
     private ?string $Rapport = null;
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name:'idR',referencedColumnName:'id_r', onDelete: 'CASCADE')]
@@ -50,7 +48,7 @@ private ?Rendezvous $idR = null;
         return $this->Rapport;
     }
 
-    public function setRapport(string $Rapport): static
+    public function setRapport(?string $Rapport): static
     {
         $this->Rapport = $Rapport;
 
@@ -85,7 +83,17 @@ public function __tostring()
 
     return $this->idRapport;
 }
+public function getRendezvous(): ?Rendezvous
+{
+    return $this->rendezvous;
+}
 
+public function setRendezvous(?Rendezvous $rendezvous): self
+{
+    $this->rendezvous = $rendezvous;
+
+    return $this;
+}
 
 
 

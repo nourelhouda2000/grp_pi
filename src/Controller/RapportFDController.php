@@ -12,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormError;      
 use App\Form\RapportType;
 use App\Repository\RendezvousRepository;
+
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class RapportFDController extends AbstractController
 {
     
@@ -47,7 +49,7 @@ class RapportFDController extends AbstractController
 
 
     #[Route('/addrapporttFD', name: 'addrapporttFD')]
-    public function addrapportFD(Request $request, ManagerRegistry $mr, RapportRepository $rapportRepository, RendezvousRepository $rendezvousRepository): Response
+    public function addrapportFD(Request $request, ManagerRegistry $mr, RapportRepository $rapportRepository, RendezvousRepository $rendezvousRepository,FlashBagInterface $flashBag): Response
 {
     $rapport = new Rapport();
     $form = $this->createForm(RapportType::class, $rapport);
@@ -77,8 +79,9 @@ class RapportFDController extends AbstractController
             $entityManager->flush();
             $rendezvous->setIdRapport($rapport);
             $entityManager->flush();
+            $flashBag->add('success', 'Rapport a été ajouté avec succès.');
             // Rediriger vers une autre page ou afficher un message de succès
-            return $this->redirectToRoute('afficherrapportFD');
+            return $this->redirectToRoute('afficherRDVD');
         }
     }
 
@@ -96,7 +99,7 @@ class RapportFDController extends AbstractController
 
 
 #[Route('/editrpD/{idRapport}', name: 'editrpD', methods: ['GET', 'POST'])]
-    public function editRpD(Request $request, RapportRepository $rapportRepository, ManagerRegistry $mr, int $idRapport): Response
+    public function editRpD(Request $request, RapportRepository $rapportRepository, ManagerRegistry $mr, int $idRapport,FlashBagInterface $flashBag): Response
     {
         $rp = $rapportRepository->find($idRapport);
     
@@ -120,8 +123,8 @@ class RapportFDController extends AbstractController
                 // Sinon, enregistrez les modifications dans la base de données
                 $entityManager = $mr->getManager();
                 $entityManager->flush();
-    
-                return $this->redirectToRoute('afficherrapportFD');
+                $flashBag->add('success', 'Rapport a été modifier avec succès.');
+                return $this->redirectToRoute('afficherRDVD');
             }
         }
     

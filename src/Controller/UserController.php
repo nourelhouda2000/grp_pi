@@ -55,13 +55,18 @@ class UserController extends AbstractController
         $em->persist($user);
         $em->flush();
   
-      
+        return $this->redirectToRoute('afficheruser');
      
     }
     return $this->render('user/end/adduser.html.twig', [
         'form' => $form->createView(),
     ]);
     }
+
+
+
+
+   
 
 
     #[Route('/rmuser/{idUser}', name: 'rmuser')]

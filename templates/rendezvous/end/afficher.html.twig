@@ -1,12 +1,36 @@
 {% extends 'rendezvous/end/baseend.html.twig' %}
 {% block title %} Sante 180° {% endblock %}
 {% block bd %}      
-
 <div class="container-fluid">
+    <div class="row justify-content-center mb-4">
+        <form id="searchForm" action="{{ path('rechercherAction') }}" method="GET" class="form-inline">
+            <div class="form-group mr-2">
+                <label for="searchTerm">Recherche :</label>
+                <input type="text" id="searchTerm" name="searchTerm" class="form-control" value="{{ app.request.query.get('searchTerm') }}">
+            </div>
+        </form>
+        <form action="{{ path('trier2') }}" method="GET" class="form-inline">
+            <div class="form-group mr-2">
+                <label for="tri">Trier par :</label>
+                <select name="tri" id="tri" class="form-control">
+                    <option value="croissant">Croissant</option>
+                    <option value="decroissant">Décroissant</option>
+                </select>
+            </div>
+           <button type="submit" class="btn btn-primary btn-trier">Trier</button>
+
+        </form>
+     {% for flash_message in app.session.flashbag.get('success') %}
+    <div id="notification-box" class="notification-box">
+        <div class="notification-content alert alert-success">{{ flash_message }}</div>
+    </div>
+{% endfor %}
+
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card shadow mb-4">
-                {% if response %}
+                {% if rendezvous %}
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Bonjour! la liste des rendez vous</h6>
                 </div>
@@ -16,50 +40,95 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Date</th>
                                     <th>Heure</th>
-                                    <th>Nom </th>
-                                    <th>Prenom </th>
-                                    <th>Rapport </th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Rapport</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for t in response %}
-                                <tr>
-                                    <td>{{ t.idR }}</td>
-                                    <td>{{ t.dateR }}</td>
-                                    <td>{{ t.heur }}</td>
-                                    <td>{{ t.nomuser }}</td>
-                                     <td>{{ t.Prenomuser}}</td>
-                                     <td>{{ t.Rapport}}</td>
-                                    <td>
-                                        
-                                        <a class="btn btn-primary btn-sm" href="{{ path('editRV', {'idR': t.idR}) }}">Modifier</a>
-                                    </td>
-                                </tr>
+                                {% for t in rendezvous %}
+                                    <tr>
+                                        <td>{{ t.dateR }}</td>
+                                        <td>{{ t.heur }}</td>
+                                        <td>{{ t.nomuser }}</td>
+                                        <td>{{ t.Prenomuser }}</td>
+                                        <td>
+                                            {% if t.Rapport is not null %}
+                                               <span class="text-success">{{ t.Rapport }}</span>     
+                                            {% else %}
+                                                 <span style="color: red;">Aucun rapport disponible pour le moment</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if t.idRapport %}
+                                                <a class="btn btn-primary btn-sm" style="background-color: green;" href="{{ path('editrp', {'idRapport': t.idRapport}) }}">Modifier Rapport</a>
+                                            {% endif %}
+                                            <a class="btn btn-primary btn-sm" style="background-color: green;" href="{{ path('editRV', {'idR': t.idR}) }}">Modifier Rendez-vous</a>
+                                            {% if t.Rapport is null %}
+                                                <a class="btn btn-primary btn-sm" href="{{ path('addrapportt') }}">Ajouter rapport</a>
+
+                                            {% endif %}
+                                             <a class="btn btn-primary btn-sm" href="{{ path('generate_pdfRDV', {'idR': t.idR}) }}" >Télécharger PDF</a>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
-                                
                             </tbody>
-                            
                         </table>
                     </div>
-
-                    <tr>
-                                    <td colspan="4" class="text-center">
-                                    <div class="text-center mt-3">
-                                        <div style="font-size: 24px;">
-                                            <a class="btn btn-primary btn-lg" href="{{ path('rendez_vous') }}" style="padding: 15px 30px; font-size: 18px;">Ajouter autre Rendez vous</a>
-                                        </div>
-                                    </div>
-                                    </td>
-                                </tr>
-                    <!-- Table End -->
+                   
+                    <div class="text-center mt-3">
+                        <a href="{{ path('rendez_vous') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus"></i> Ajouter Rendez-Vous
+                        </a>
+                        <a href="{{ path('rendez-vous-statistiques') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-chart-bar"></i> Statistiques
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .notification-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        z-index: 1000; /* Pour s'assurer que la boîte de notification apparaît au-dessus du contenu */
+        transition: opacity 0.5s ease-in-out; /* Ajoute une transition d'opacité */
+        opacity: 1; /* Assurez-vous que la boîte de notification est visible par défaut */
+    }
+
+    .notification-content {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .notification-hidden {
+        opacity: 0; /* Masque la boîte de notification en la rendant transparente */
+    }
+</style>
+
+<script>
+    // Sélectionnez la div de la notification de succès
+    const successMessage = document.getElementById('notification-box');
+
+    // Vérifiez si la notification existe
+    if (successMessage) {
+        // Masquez la notification après 5 secondes (5000 millisecondes)
+        setTimeout(function() {
+            successMessage.classList.add('notification-hidden');
+        }, 2000); // Modifier le délai selon vos besoins
+    }
+</script>
 {% endblock %}

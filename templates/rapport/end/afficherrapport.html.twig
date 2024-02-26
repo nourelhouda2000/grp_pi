@@ -1,66 +1,38 @@
 {% extends 'rendezvous/end/baseend.html.twig' %}
 {% block title %} Sante 180° {% endblock %}
 {% block bd %}      
-
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-8"> <!-- Utilisez col-md-8 pour une largeur maximale sur les petits écrans -->
             <div class="card shadow mb-4">
                 {% if response %}
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Rapports</h6>
-                </div>
-                {% endif %}
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID Rapport</th>
-                                    <th>Prenom utilisateur</th>
-                                    <th>Nom utilisateur</th>
-                                    <th>Rapport</th>
-                                    <th>Date du rendez-vous</th>
-                                    <th>Heure du rendez-vous</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for t in response %}
-                                <tr>
-                                    <td>{{ t.idRapport }}</td>
-                                    <td>{{ t.idR.getPrenomUser() }}</td>
-                                    <td>{{ t.idR.getNomUser() }}</td>
-                                    
-                                    <td>{{ t.Rapport }}</td>
-                                    <td>{{ t.idR.dateR }}</td>
-                                    <td>{{ t.idR.heur }}</td>
-                                    <td>
-                                        
-                                        <a class="btn btn-primary btn-sm" href="{{ path('editrp', {'idRapport': t.idRapport}) }}">Modifier</a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                    {% if response.Rapport is defined and response.Rapport is not empty %}
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Rapport du rendez-vous</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ response.Rapport }}</p> <!-- Affichage du rapport -->
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Aucun rapport trouvé pour ce rendez-vous</h6>
                     </div>
-                    <tr>
-                     <div class="text-center mt-3">
-                        <td colspan="5" class="text-center">
-                         <div style="font-size: 24px;">
-                            <a class="btn btn-primary btn-sm" href="{{ path('addrapportt') }}"style="padding: 15px 30px; font-size: 18px;">Ajouter autre Rapport</a>
-                             </div>
-                        </td>
- 
-                                    </div>
-
-                        
-                    </tr>
-                    <!-- Table End -->
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <a href="{{ path('addrapportt') }}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus"></i> Ajouter un rapport
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="card-footer text-center">
+                    <a href="{{ path('afficher') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste des rendez-vous
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

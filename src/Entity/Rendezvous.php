@@ -67,7 +67,7 @@ class Rendezvous
         return $this->dateR;
     }
 
-    public function setDateR(string $dateR): static
+    public function setDateR(?string $dateR): static
     {
         $this->dateR = $dateR;
 
@@ -79,7 +79,7 @@ class Rendezvous
         return $this->heur;
     }
 
-    public function setHeur(string $heur): static
+    public function setHeur(?string $heur): static
     {
         $this->heur = $heur;
 

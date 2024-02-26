@@ -5,41 +5,115 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow mb-4">
-                {% if response %}
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #66CDAA;">Bonjour! Madame,Monsieur voici la liste des rendez vous</h6> <!-- Utilisation de la relation many-to-one avec User pour obtenir le nom de l'utilisateur -->
+                    <h6 class="m-0 font-weight-bold">Bonjour! Madame, Monsieur, voici la liste des rendez-vous</h6>
                 </div>
-                {% endif %}
                 <div class="card-body">
+                    <form id="searchForm" action="{{ path('rechercherActionFD') }}" method="GET" class="form-inline mb-3">
+                        <div class="form-group mr-2">
+                            <label for="searchTerm">Recherche :</label>
+                            <input type="text" id="searchTerm" name="searchTerm" class="form-control" value="{{ app.request.query.get('searchTerm') }}">
+                        </div>
+                    </form>
+                    <form action="{{ path('trier2FD') }}" method="GET" class="form-inline mb-3">
+                        <div class="form-group mr-2">
+                            <label for="tri">Trier par :</label>
+                            <select name="tri" id="tri" class="form-control">
+                                <option value="croissant">Croissant</option>
+                                <option value="decroissant">Décroissant</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm" style="background-color: #66CDAA;">Trier</button>
+                    </form>
+                    {% for flash_message in app.session.flashbag.get('success') %}
+                        <div id="notification-box" class="notification-box">
+                            <div class="notification-content alert alert-success">{{ flash_message }}</div>
+                        </div>
+                    {% endfor %}
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
                                     <th>Date</th>
                                     <th>Heure</th>
-                                    
+                                    <th>Rapport</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for rendezvous in response %}
-                                <tr>
-                                    <td>{{ rendezvous.dateR }}</td>
-                                    <td>{{ rendezvous.heur }}</td>
-                                    
-                                
-
-                               
+                                {% for rendezvous in rendezvous %}
+                                    <tr>
+                                        <td>{{ rendezvous.Prenomuser }}</td>
+                                        <td>{{ rendezvous.nomuser }}</td>
+                                        <td>{{ rendezvous.dateR }}</td>
+                                        <td>{{ rendezvous.heur }}</td>
+                                        <td>
+                                            {% if rendezvous.Rapport is not null %}
+                                                <span class="text-primary">{{ rendezvous.Rapport }}</span>
+                                            {% else %}
+                                                <span style="color: red;">Aucun rapport disponible pour le moment</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if rendezvous.idRapport %}
+                                                <a class="btn btn-success btn-sm" style="background-color: #66CDAA;" href="{{ path('editrpD', {'idRapport': rendezvous.idRapport}) }}">Modifier</a>
+                                            {% endif %}
+                                            {% if rendezvous.Rapport is null %}
+                                                <a class="btn btn-success btn-sm" href="{{ path('addrapporttFD') }}" style="background-color: #66CDAA;">Ajouter rapport</a>
+                                           
+                                            {% endif %}
+                                            <a class="btn btn-success btn-sm" href="{{ path('generate_pdfRDV', {'idR': rendezvous.idR}) }}" style="background-color: #66CDAA;">Télécharger PDF</a>
+                                        </td>
                                     </tr>
+                                     
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-                    <tr>
-                       
-                    </tr>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .notification-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        z-index: 1000; /* Pour s'assurer que la boîte de notification apparaît au-dessus du contenu */
+        transition: opacity 0.5s ease-in-out; /* Ajoute une transition d'opacité */
+        opacity: 1; /* Assurez-vous que la boîte de notification est visible par défaut */
+    }
+
+    .notification-content {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .notification-hidden {
+        opacity: 0; /* Masque la boîte de notification en la rendant transparente */
+    }
+</style>
+
+<script>
+    // Sélectionnez la div de la notification de succès
+    const successMessage = document.getElementById('notification-box');
+
+    // Vérifiez si la notification existe
+    if (successMessage) {
+        // Masquez la notification après 5 secondes (5000 millisecondes)
+        setTimeout(function() {
+            successMessage.classList.add('notification-hidden');
+        }, 2000); // Modifier le délai selon vos besoins
+    }
+</script>
 {% endblock %}

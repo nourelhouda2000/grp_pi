@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormError;
 use App\Form\RapportType;
 use App\Repository\RendezvousRepository;
 
-
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class RapportController extends AbstractController
 {
 
@@ -37,14 +37,27 @@ class RapportController extends AbstractController
 
       
     }
-    #[Route('/afficherrapport', name: 'afficherrapport')]
-    public function afficherrapport(RapportRepository $repo): Response
+    #[Route('/afficherrapport/{idR}', name: 'afficherrapport', methods: ['GET'])]
+    public function afficherrapport(int $idR, RapportRepository $rapportRepository): Response
     {
-        $resul= $repo->findAll();
+        // Récupérer le rendez-vous
+        $rendezvous = $this->getDoctrine()->getRepository(Rendezvous::class)->find($idR);
+        
+        // Vérifier si le rendez-vous existe
+        if (!$rendezvous) {
+            throw $this->createNotFoundException('Rendez-vous non trouvé');
+        }
+        
+        // Récupérer le rapport associé au rendez-vous
+        $rapport = $rapportRepository->findOneBy(['idR' => $rendezvous]);
+        
+        // Passer le rapport à votre template Twig pour l'afficher
         return $this->render('rapport/end/afficherrapport.html.twig', [
-            'response' => $resul,
+            'response' => $rapport,
         ]);
     }
+
+
 
 
 
@@ -59,7 +72,7 @@ class RapportController extends AbstractController
 
 
     #[Route('/addrapportt', name: 'addrapportt')]
-    public function addrapport(Request $request, ManagerRegistry $mr, RapportRepository $rapportRepository, RendezvousRepository $rendezvousRepository): Response
+    public function addrapport(Request $request, ManagerRegistry $mr, RapportRepository $rapportRepository, RendezvousRepository $rendezvousRepository,FlashBagInterface $flashBag): Response
 {
     $rapport = new Rapport();
     $form = $this->createForm(RapportType::class, $rapport);
@@ -89,8 +102,9 @@ class RapportController extends AbstractController
             $entityManager->flush();
             $rendezvous->setIdRapport($rapport);
             $entityManager->flush();
+            $flashBag->add('success', 'Rapport a été ajouté avec succès.');
             // Rediriger vers une autre page ou afficher un message de succès
-            return $this->redirectToRoute('afficherrapport');
+            return $this->redirectToRoute('afficher');
         }
     }
 
@@ -98,6 +112,7 @@ class RapportController extends AbstractController
         'form' => $form->createView(),
     ]);
 }
+
 
 
 
@@ -138,7 +153,7 @@ class RapportController extends AbstractController
 
 
     #[Route('/editrp/{idRapport}', name: 'editrp', methods: ['GET', 'POST'])]
-    public function editRp(Request $request, RapportRepository $rapportRepository, ManagerRegistry $mr, int $idRapport): Response
+    public function editRp(Request $request, RapportRepository $rapportRepository, ManagerRegistry $mr, int $idRapport,FlashBagInterface $flashBag): Response
     {
         $rp = $rapportRepository->find($idRapport);
     
@@ -162,8 +177,8 @@ class RapportController extends AbstractController
                 // Sinon, enregistrez les modifications dans la base de données
                 $entityManager = $mr->getManager();
                 $entityManager->flush();
-    
-                return $this->redirectToRoute('afficherrapport');
+                $flashBag->add('success', 'Rapport a été modifier avec succès.');
+                return $this->redirectToRoute('afficher');
             }
         }
     
@@ -172,5 +187,20 @@ class RapportController extends AbstractController
         ]);
     }
 
+
+    #[Route('/rechercherapport', name: 'rechercherapport')]
+public function rechercherapport(Request $request, RapportRepository $rapportRepository): Response
+{
+    // Récupérer le terme de recherche depuis la requête
+    $searchTerm = $request->query->get('q');
+
+    // Utiliser le repository pour rechercher les rapports correspondant au terme de recherche
+    $rapports = $rapportRepository->searchRapports($searchTerm);
+
+    // Retourner la réponse avec les résultats de la recherche
+    return $this->render('rapport/rechercherapport.html.twig', [
+        'rapports' => $rapports,
+    ]);
+}
 
 }
