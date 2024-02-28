@@ -1,9 +1,14 @@
-{% extends 'rendezvous/end/baseend.html.twig' %}
+{% extends 'user/end/baseend.html.twig' %}
+
 {% block title %} Sante 180° {% endblock %}
+
 {% block bd %}  
 
 
-<div id="wrapper">
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    <div id="wrapper">
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -14,43 +19,49 @@
                         <div class="col-md-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-         <div class="container-fluid">
-        <h6 class="m-0 font-weight-bold text-primary">Modifier un rendez-vous</h6>
-</div>
- <div class="card-body">
-                                   <div class="card-body">
-                                    <!-- Form Start -->
-                                    {{ form_start(form) }}
-                                    <div class="form-group">
-                                        {{ form_row(form.nomuser, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+                                    <div class="container-fluid">
+                                        <h6 class="m-0 font-weight-bold text-primary">Modifier un rendez-vous</h6>
                                     </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.Prenomuser, {'label': 'Prénom', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.ageuser, {'label': 'Âge', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.sexe, {'label': 'Sexe', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.mdp, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form_row(form.role, {'label': 'Rôle', 'attr': {'class': 'form-control'}}) }}
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Confirmer</button>
-                                    </div>
-                                    {{ form_end(form) }}
-                                    <!-- Form End -->
                                 </div>
-    </div>
-
-       </div>
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <!-- Form Start -->
+                                        {{ form_start(form) }}
+                                        <div class="form-group">
+                                            {{ form_row(form.nomuser, {'label': 'Nom', 'attr': {'class': 'form-control'}, 'value': form.nomuser.vars.value|default('') }) }}
+                                            {{ form_errors(form.nomuser) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.Prenomuser, {'label': 'Prénom', 'attr': {'class': 'form-control'}, 'value': form.Prenomuser.vars.value|default('') }) }}
+                                            {{ form_errors(form.Prenomuser) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.ageuser, {'label': 'Âge', 'attr': {'class': 'form-control'}, 'value': form.ageuser.vars.value|default('') }) }}
+                                            {{ form_errors(form.ageuser) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.sexe, {'label': 'Sexe', 'attr': {'class': 'form-control'}, 'value': form.sexe.vars.value|default('') }) }}
+                                            {{ form_errors(form.sexe) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.mdp, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}, 'value': form.mdp.vars.value|default('') }) }}
+                                            {{ form_errors(form.mdp) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control'}, 'value': form.email.vars.value|default('') }) }}
+                                            {{ form_errors(form.email) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.role, {'label': 'Rôle', 'attr': {'class': 'form-control'}, 'value': form.role.vars.value|default('') }) }}
+                                            {{ form_errors(form.role) }}
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Confirmer</button>
+                                        </div>
+                                        {{ form_end(form) }}
+                                        <!-- Form End -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,9 +72,5 @@
         </div>
         <!-- End of Content Wrapper -->
     </div>         
-
-
-
-
 
 {% endblock %}

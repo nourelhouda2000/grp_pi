@@ -6,7 +6,19 @@
 
 {% block bd %}
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        
+       <form action="{{ url('rechercherActionUser') }}" method="get">
+    <div class="form-group mr-2">
+        <label for="searchTermUser">Recherche :</label>
+        <input type="text" id="searchTermUser" name="searchTermUser" class="form-control" value="{{ app.request.query.get('searchTermUser') }}">
+    </div>
+    <button type="submit">Rechercher</button>
+</form>
+
+
+
+
+<div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -58,6 +70,9 @@
                         </div>
                         <div class="text-center mt-3">
                             <a class="btn btn-primary btn-lg" href="{{ path('ajouteruser') }}" style="font-size: 18px;">Ajouter un autre Utilisateur</a>
+                        </div>
+                         <div class="text-center mt-3">
+                            <a class="btn btn-primary btn-lg" href="{{ path('user_stats') }}" style="font-size: 18px;">Statistiques</a>
                         </div>
                         <!-- Table End -->
                     </div>

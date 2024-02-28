@@ -5,3 +5,14 @@ addrapport:
     path: /addrapport
     controller: App\Controller\RapportController::addrapport
     methods: [POST]
+
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+
+
+default_route:
+    path: /creercompte
+    controller: App\Controller\UserfController::creercompte

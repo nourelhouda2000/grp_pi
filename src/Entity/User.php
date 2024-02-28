@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Serializable;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface , Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -65,7 +65,6 @@ class User
      */
     #[ORM\Column]
     private ?int $role = null;
-
     public function __construct()
     {
         $this->rendezvouses = new ArrayCollection();
@@ -81,7 +80,7 @@ class User
         return $this->nomuser;
     }
 
-    public function setNomuser(string $nomuser): static
+    public function setNomuser(?string $nomuser): static
     {
         $this->nomuser = $nomuser;
 
@@ -93,7 +92,7 @@ class User
         return $this->ageuser;
     }
 
-    public function setAgeuser(string $ageuser): static
+    public function setAgeuser(?string $ageuser): static
     {
         $this->ageuser = $ageuser;
 
@@ -105,7 +104,7 @@ class User
         return $this->sexe;
     }
 
-    public function setSexe(string $sexe): static
+    public function setSexe(?string $sexe): static
     {
         $this->sexe = $sexe;
 
@@ -117,7 +116,7 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -129,7 +128,7 @@ class User
         return $this->mdp;
     }
 
-    public function setMdp(string $mdp): static
+    public function setMdp(?string $mdp): static
     {
         $this->mdp = $mdp;
 
@@ -141,7 +140,7 @@ class User
         return $this->Prenomuser;
     }
 
-    public function setPrenomuser(string $Prenomuser): static
+    public function setPrenomuser(?string $Prenomuser): static
     {
         $this->Prenomuser = $Prenomuser;
 
@@ -177,10 +176,7 @@ class User
         return $this;
     }
 
-    public function getRole(): ?int
-{
-    return $this->role;
-}
+
 
 
     public function setRole(int $role): static
@@ -225,8 +221,10 @@ class User
 
 
 
-
-
+    public function getRole(): ?int
+    {
+        return $this->role;
+    }
 
 
 
@@ -236,31 +234,65 @@ class User
 
 
     public function getRoles(): array
-{
-    // Logique pour déterminer les rôles de l'utilisateur
-    // Par exemple, si vous utilisez le champ "role" de votre entité User:
-    $roles = [];
-    switch ($this->role) {
-        case 0:
-            $roles[] = 'ROLE_ADMIN';
-            break;
-        case 1:
-            $roles[] = 'ROLE_DOCTOR';
-            break;
-        case 2:
-            $roles[] = 'ROLE_PATIENT';
-            break;
-        // Ajoutez d'autres cas si nécessaire
+    {
+        $roles = [];
+
+        switch ($this->role) {
+            case 0:
+                $roles[] = 'ROLE_ADMIN';
+                break;
+            case 1:
+                $roles[] = 'ROLE_DOCTOR';
+                break;
+            case 2:
+                $roles[] = 'ROLE_PATIENT';
+                break;
+        }
+
+        return $roles;
     }
 
-    return $roles;
-}
 
+    
 
-public function __tostring()
+public function serialize()
 {
-
-    return $this->role;
+    return serialize([
+        $this->idUser,
+        // ... (other fields to be serialized)
+    ]);
 }
 
+public function unserialize($serialized)
+{
+    list(
+        $this->idUser,
+        // ... (other fields to be unserialized)
+    ) = unserialize($serialized, ['allowed_classes' => false]);
+}
+
+public function __toString()
+{
+    return (string) $this->role;
+}
+
+
+private function handleUserRoleRedirect(User $user): Response
+{
+    $roles = $user->getRoles();
+
+    foreach ($roles as $role) {
+        switch ($role) {
+            case 'ROLE_ADMIN':
+                return $this->redirectToRoute('index');
+            case 'ROLE_DOCTOR':
+                return $this->redirectToRoute('index_fD');
+            case 'ROLE_PATIENT':
+                return $this->redirectToRoute('index_f');
+            // Add other cases if needed
+            default:
+                return $this->redirectToRoute('index_fHome');
+        }
+    }
+}
 }

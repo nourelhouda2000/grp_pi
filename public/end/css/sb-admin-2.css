@@ -11279,3 +11279,23 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+/* styles.css */
+.user-stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-stats-item {
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.stat-value {
+  color: #007bff; /* ou toute autre couleur de votre choix */
+}
+

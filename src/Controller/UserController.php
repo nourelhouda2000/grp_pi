@@ -109,6 +109,49 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('/stats', name: 'user_stats')]
+public function userStats(UserRepository $userRepository): Response
+{
     
+    $doctorCount = $userRepository->countDoctors();
+    $patientCount = $userRepository->countPatients();
+
+
+    return $this->render('user/end/stats.html.twig', [
+        'doctorCount' => $doctorCount,
+        'patientCount' => $patientCount,
+       
+    ]);
+}
+
+
+
+
+#[Route('/search', name:'search_users')]
+     
+public function searchUsers(Request $request, UserRepository $userRepository)
+{
+    $term = $request->query->get('term'); 
+
+    $users = $userRepository->searchUsersByTerm($term);
+
+    return $this->render('user\end\afficherUser.html.twig', [
+        'users' => $users,
+    ]);
+}
+
+
+
+#[Route('/rechercherActionUser', name: 'rechercherActionUser')]
+public function rechercherActionUser(Request $request, UserRepository $repository)
+{
+    $searchTermUser = $request->query->get('searchTermUser');
+
+    $resultats = $repository->rechercherUserByCriteria(['nomuser' => $searchTermUser]);
+   
+    return $this->render('user\end\afficherUser.html.twig', [
+        'response' => $resultats,
+    ]);
+}
 
 }

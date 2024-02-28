@@ -1,0 +1,66 @@
+{% extends 'user/end/baseend.html.twig' %}
+
+{% block title %} Sante 180° {% endblock %}
+
+{% block bd %}  
+    <h1>Statistiques Utilisateurs</h1>
+    <link href="{{ asset('/end/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <div class="user-stats">
+        <div class="user-stats-item">
+            <span class="stat-label">Nombre de Docteurs :</span>
+            <span class="stat-value">{{ doctorCount }}</span>
+        </div>
+        <div class="user-stats-item">
+            <span class="stat-label">Nombre de Patients :</span>
+            <span class="stat-value">{{ patientCount }}</span>
+        </div>
+        
+        <!-- Conteneur du graphique -->
+        <canvas id="userChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Inclure Chart.js depuis CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inclure le plugin chartjs-plugin-ticks -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-ticks"></script>
+
+    <!-- Script pour créer le graphique -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('userChart').getContext('2d');
+            var userChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Docteurs', 'Patients'],
+                    datasets: [{
+                        label: 'Nombre d\'utilisateurs',
+                        data: [{{ doctorCount }}, {{ patientCount }}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            // Utiliser le plugin pour formater les nombres avec une virgule
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString(); // Utiliser toLocaleString pour la virgule
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
