@@ -61,7 +61,12 @@ class Nutritions
     {
         return $this->id;
     }
+    public function setId(?string $id): static
+    {
+        $this->id = $id;
 
+        return $this;
+    }
     public function getCalories(): ?string
     {
         return $this->calories;

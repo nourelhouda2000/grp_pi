@@ -1,3 +1,14 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+favorites_index:
+    path: /favorites
+    controller: App\Controller\FavsController::index
+    methods: ['GET']
+
+favorites_add:
+    path: /addfa/{id}
+    controller: 'App\Controller\FavsController::addfa'
+    methods: ['GET']
+
+  

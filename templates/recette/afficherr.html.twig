@@ -336,6 +336,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content Reclamation -->
+                  
                 <div class="container-fluid">
 
                     
@@ -357,11 +358,29 @@
 
                                     </div>
                                     <br/>
+                                    <form action="{{ path('filtrage') }}" method="GET" class="my-4 border p-3 rounded bg-light shadow-sm">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div class="form-group me-3">
+                <label for="nom" class="fw-bold">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" placeholder="Enter Nom" value="{{ app.request.query.get('nom') }}">
+            </div>
+            <div class="form-group me-3">
+                <label for="ingredient" class="fw-bold">Ingredient</label>
+                <input type="text" class="form-control" id="ingredient" name="ingredient" placeholder="Enter Ingredient" value="{{ app.request.query.get('ingredient') }}">
+            </div>
+            <div class="form-group me-3">
+                <label for="category" class="fw-bold">Category</label>
+                <input type="text" class="form-control" id="category" name="category" placeholder="Enter Category" value="{{ app.request.query.get('category') }}">
+            </div>
+            <button type="submit" class="btn btn-success" name="recherche">Rechercher</button>
+        </div>
+    </form>
+
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>id</th>
+                                                    <th>id recette</th>
                                                     <th>category</th>
                                                      <th>ingredient</th>
                                                     <th>nom</th>
@@ -413,6 +432,10 @@
         </tr>
                                             </tbody>
                                         </table>
+
+                      
+
+              
         
                                     <!-- Table End -->
                                 </div>

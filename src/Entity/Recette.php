@@ -19,10 +19,7 @@ class Recette
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank(message: "nom not selected")]
-    #[Assert\Length(
-        min: 3,
-        minMessage: "nom must have at least {{ limit }} characters"
-    )]
+   
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -37,19 +34,26 @@ class Recette
     #[ORM\JoinColumn(name: 'nutrition_id', referencedColumnName: 'id')]
     #[Assert\NotBlank(message: "nutrition not selected")]
     private ?Nutritions $nutrition;
-
-
+       /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+   /*  private $imageFileName; */
     public function getId(): ?int
     {
         return $this->id;
     }
+    public function setId(?string $id): static
+    {
+        $this->id = $id;
 
+        return $this;
+    }
     public function getNom(): ?string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(?string $nom): static
     {
         $this->nom = $nom;
 
@@ -61,7 +65,7 @@ class Recette
         return $this->ingredient;
     }
 
-    public function setIngredient(string $ingredient): static
+    public function setIngredient(?string $ingredient): static
     {
         $this->ingredient = $ingredient;
 
@@ -73,7 +77,7 @@ class Recette
         return $this->category;
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(?string $category): static
     {
         $this->category = $category;
 
@@ -91,4 +95,16 @@ class Recette
 
         return $this;
     }
+/*     public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
+    
+        return $this; 
+    } */
+    
 }

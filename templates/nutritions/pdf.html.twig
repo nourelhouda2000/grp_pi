@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nutrition Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            padding: 20px;
+        }
+        .content h1 {
+            flex: 1; /* Expand to fill remaining space */
+            margin: 0; /* Remove default margin */
+        }
+        .logo img {
+            max-width: 150px; /* Adjust the maximum width as needed */
+            margin-right: 20px; /* Add space between image and text */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px; /* Add margin top for spacing */
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+        td {
+            font-size: 14px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+        @page {
+            margin: 30mm 15mm 10mm 15mm;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">
+            <img src="https://th.bing.com/th/id/OIP.Bo0WfbqitwJfHelINnzK6wHaHV?rs=1&pid=ImgDetMain" alt="logo">
+        </div>
+        <h1>Nutrition Details</h1>
+    </div>
+
+    <div class="content">
+       <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                        <h6 class="text-center">Food Group</h6>               
+                                            </div>
+             <div class="card-body">
+           <div class="row">
+                <div class="col-6">
+                 <p><i class="fa-solid fa-fire-flame-curved"></i>
+                  <strong> Calories :</strong>{{ nutritions.calories }}</p>
+                </div>                                   
+               <div class="col-6">
+                                                <p> <i class="fas fa-leaf"></i><strong> Fibres :</strong>{{ nutritions.fibres }}</p>
+                                                </div>
+                                                </div>
+                                                 <div class="row">
+                                               <div class="col-6">
+                                                    <p> <i class="fas fa-bread-slice"></i><strong> Glucides :</strong>{{ nutritions.glucides }}</p>
+                                                </div>
+                                                
+                                                  <div class="col-6">
+                                                <p><i class="fas fa-cheese"></i><strong> Lipides :</strong>{{ nutritions.lipides }}</p>
+                                                </div>
+                                                </div>
+                                                 <div class="row">
+                                                 <div class="col">
+                                                <p> <i class="fas fa-drumstick-bite"></i><strong> Proteines:</strong>{{ nutritions.proteines }}</p>
+                                                </div>
+                                                 
+                                                </div>
+           </div> </div>
+           
+    </div>
+
+    <div class="footer">
+        Generated on {{ "now"|date("Y-m-d") }}
+    </div>
+</body>
+</html>

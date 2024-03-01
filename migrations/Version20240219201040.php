@@ -20,7 +20,7 @@ final class Version20240219201040 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE recette (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, ingredient VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, nutrition_id INT DEFAULT NULL, INDEX IDX_49BB6390B5D724CD (nutrition_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('CREATE TABLE recette (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, ingredient VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, nutrition_id INT DEFAULT NULL, imageFileName VARCHAR(1024) NOT NULL ,INDEX IDX_49BB6390B5D724CD (nutrition_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE recette ADD CONSTRAINT FK_49BB6390B5D724CD FOREIGN KEY (nutrition_id) REFERENCES nutritions (id)');
     }
 

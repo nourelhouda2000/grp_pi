@@ -17,6 +17,7 @@ class NutritionsType extends AbstractType
             ->add('glucides')
             ->add('lipides')
             ->add('fibres')  
+      
         ;
     }
 

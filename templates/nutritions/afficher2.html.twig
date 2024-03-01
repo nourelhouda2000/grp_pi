@@ -1,8 +1,12 @@
 {% extends 'nutritions/FrontEnd/basef.html.twig' %}
 
 {% block body %}
+<head>
+    <!-- Autres balises head -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
 
-   <div class="container-fluid">
+   <div class="container-fluid p-1">
 
         <div class="row justify-content-center">
 
@@ -12,133 +16,98 @@
 
                     <div class="card-header py-3">
 
-                        <h6 class="m-0 font-weight-bold text-primary">Afficher nutrition</h6>
+                        <h6 class="m-0 font-weight-bold text-primary  text-center">Afficher nutrition</h6>
 
                     </div>
+                     <strong class="  p-2" > Bienvenue dans la section des nutrition</strong>
+            
+                <div class="card-body">
+                    <p>Cette section fournit des informations sur le contenu nutritionnel des différents groupes d'aliments. Explorez des détails tels que les calories, les fibres, les glucides, les lipides et les protéines pour faire des choix alimentaires éclairés.</p>
+                </div>
 
                     <div class="card-body">
+                       
+                                        <div class="table-responsive">
 
-                        <div class="table-responsive">
+                            <div class="row">
+                            
+                                {% for t in response %}
+                                    <div class="col-md-6">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                        <h6 class="text-center">Food Group</h6>               
+                                            </div>
+                                            <div class="card-body">
+                                              <div class="row">
+                                            
 
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                               <div class="col-6">
+                                                <p><i class="fa-solid fa-fire-flame-curved"></i>
+                                                    <strong> Calories :</strong>{{ t.calories }}</p>
+                                                </div>
+                                                  <div class="col-6">
+                                                <p> <i class="fas fa-leaf"></i><strong> Fibres :</strong>{{ t.fibres }}</p>
+                                                </div>
+                                                </div>
+                                                 <div class="row">
+                                               <div class="col-6">
+                                                    <p> <i class="fas fa-bread-slice"></i><strong> Glucides :</strong>{{ t.glucides }}</p>
+                                                </div>
+                                                
+                                                  <div class="col-6">
+                                                <p><i class="fas fa-cheese"></i><strong> Lipides :</strong>{{ t.lipides }}</p>
+                                                </div>
+                                                </div>
+                                                 <div class="row">
+                                                 <div class="col">
+                                                <p> <i class="fas fa-drumstick-bite"></i><strong> Proteines:</strong>{{ t.proteines }}</p>
+                                                </div>
+                                                 
+                                                </div>
+                                                <div class="row">
+                                                 <div class="col">
+                                                 <a class="nav-link" href="{{asset('/nutritions/pdf/' ~ t.id )}}"><i class="fa-regular fa-file-pdf"> PDF</i></a> 
+                                                 </div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if loop.index % 2 == 0 %}
+                                        </div>
+                                        <div class="row">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
 
-    <thead>
-
-    
-
-        <tr>
-
-            <th>id nutrition</th>
-
-            <th>calories</th>
-
-            <th>proteines</th>
-
-            <th>glucides</th>
-
-            <th>lipides</th>
-              <th>fibres</th>
-
-           
-
-           
-
-           
-
-            
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        {% for t in response %}
-
-            <tr>
-
-                <td>{{ t.id }}</td>
-                 <td>{{ t.calories }}</td>
-
-                <td>{{ t.proteines }}</td>
-                <td>{{ t.glucides }}</td>
-
-                        <td>{{ t.lipides }}</td>
-                         <td>{{ t.fibres }}</td>
-             
-
-                
-               
-
-              
-
-               
-
-                
-
-                <td>
-
-                  
-                </td>
-           
-
-            </tr>
-
-        {% endfor %}
-           
-
-    </tbody>
-
-</table>
-
- 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <style>
-
-  
-
- 
-
     .btn {
-
         display: inline-block;
-
         padding: 6px 12px;
-
         margin: 5px;
-
         text-decoration: none;
-
         border-radius: 4px;
-
     }
-
- 
 
     .btn-update {
-
         background-color: #007bff;
-
         color: #fff;
-
     }
 
-.btn-Add {
-
+    .btn-Add {
         background-color: #007bff;
-
         color: #fff;
-
     }
 
     .btn-delete {
-
         background-color: #fa0505;
-
         color: #fff;
-
     }
-
 </style>
 
 {% endblock %}

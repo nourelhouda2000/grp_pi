@@ -1,97 +1,165 @@
 {% extends 'nutritions/FrontEnd/basef.html.twig' %}
 
 {% block body %}
+<head>
+    <!-- Autres balises head -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-<your-integrity-hash>" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-   <div class="container-fluid">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-B7Zk23RjwIsEdjFLiXOVll9dxYGT9LS7R1vD5n9+4/yCcHD+b1Dg7z+mO+28bAwWTXAtj+dtUMiWyItvBXO3bQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% block javascript %}
 
-        <div class="row justify-content-center">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filterForm');
+    const recipeCardsContainer = document.getElementById('recipeCardsContainer');
 
-            <div class="col-md-8">
+    filterForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-                <div class="card shadow mb-4">
+        const nomInput = filterForm.querySelector('#Nom');
+        const searchTerm = nomInput.value.toLowerCase();
 
-                    <div class="card-header py-3">
+        // Loop through recipe cards and hide/show based on the filter
+        const recipeCards = recipeCardsContainer.querySelectorAll('.card');
+        recipeCards.forEach(function(card) {
+            const recipeName = card.querySelector('.card-header h6').innerText.toLowerCase();
+            if (recipeName.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
 
-                        <h6 class="m-0 font-weight-bold text-primary">Afficher nutrition</h6>
+</head>
+<div class="container-fluid p-1">
 
-                    </div>
+    <div class="row justify-content-center">
 
-                    <div class="card-body">
+        <div class="col-md-8">
 
-                        <div class="table-responsive">
-
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-    <thead>
-
-    
-
-        <tr>
-
-            <th>id recette</th>
-
-            <th>nom</th>
-
-            <th>category</th>
-
-            <th>ingredient</th>
-
-            <th>nutrition</th>
+            <!-- Description Section -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 text-center">
+                    <h6 class="m-0 font-weight-bold text-primary"> 
+Bienvenue dans la section des recettes  ! </h6>
+                </div>
+                <div class="card-body">
+                    <p> Cette section propose une collection de délicieuses recettes à essayer. Explorez différentes catégories, ingrédients et informations nutritionnelles pour créer des repas savoureux .</p>
+                </div>
              
-
-           
-
-           
-
-           
-
-            <th>Actions</th> <!-- Rename the table header to "Actions" -->
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        {% for t in response %}
-
-            <tr>
-
-                <td>{{ t.id }}</td>
-                 <td>{{ t.nom }}</td>
-
-                <td>{{ t.category }}</td>
-                <td>{{ t.ingredient }}</td>
-
-                        <td>{{ t.nutrition }}</td>
                    
-             
 
-                
-               
-
-              
+                        
 
                
 
-                
-
-                <td>
-                    <a href="{{ path('modifierRecettefront', {'id': t.id}) }}" class="btn btn-update">Update</a>
                   
-                </td>
-           
-
-            </tr>
-
+            </div>
+            {% for flash_message in app.session.flashbag.get('success') %}
+            <div id="notification-box" class="notification-box">
+                <div class="notification-content alert alert-success">{{ flash_message }}</div>
+            </div>
         {% endfor %}
-           
+   <li><a href="{{ path('favorites_index') }}" >Favorites <i class="fa-solid fa-heart"></i></a></li>
+<form method="GET" class="my-4 border p-3 rounded bg-light shadow-sm" id="filterForm">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+        <div class="form-group me-3">
+            <label for="Nom" class="fw-bold">Nom</label>
+            <input type="text" class="form-control" id="Nom" name="Nom" placeholder="Entrer Votre Nom" value="{{ app.request.query.get('Nom') }}">
+        </div>
+  
+         <button type="submit" class="btn btn-success" style="background-color: transparent; color: green;">
+           Filtrer <i class="fas fa-filter"></i> 
+        </button>
+        
+      </form> 
+    </div>
+            <!-- Recipe Cards Section -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Afficher Recettes</h6>
+                </div>
+              <div class="card-body" id="recipeCardsContainer">
 
-    </tbody>
+                    <div class="table-responsive">
+                        <div class="row">
+                         <div class="img-box d-flex justify-content-center align-items-center">
 
-</table>
+                                                    
 
- 
+                                                </div>
+                            {% for t in response %}
+                                <div class="col-md-4">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="text-center">{{ t.nom }}</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="img-box">
+
+                  {% set image_number = loop.index % 3 %}
+
+                    {% if image_number == 1 %}
+
+                      <img src="{{asset('/FrontEnd/images/f3.jpg')}}" alt="" />
+
+                    {% elseif image_number == 2 %}
+
+                       <img src="{{asset('/FrontEnd/images/f3.jpg')}}" alt="" />
+
+                    {% else %}
+
+                        <img src="{{asset('/FrontEnd/images/f3.jpg')}}" alt="" />
+
+                    {% endif %}
+
+                  </div>
+                                               
+                                                <p><i class="fa-solid fa-fire-flame-curved"></i>
+                                                    <strong> Category :</strong>{{ t.category }}</p>
+                                              
+                                                 
+                                            </div>
+                                                <div class="row">
+                                               
+                                                    <p> <i class="fas fa-leaf"></i><strong> Ingredient :</strong>{{ t.ingredient }}</p>
+                                                </div>
+                                                 <div class="row">
+                                               
+                                                    <p> <i class="fas fa-bread-slice"></i><strong> Nutrition :</strong>{{ t.nutrition }}</p>
+                                             </div>
+                                             <div class="row">
+                                             <div class="col-9">
+                                             <a href="{{ path('modifierRecettefront', {'id': t.id}) }}" <i class="fa-solid fa-pen"></i></a>
+                                             </div>
+                                                <div class="col-3">
+<a href="{{ path('favorites_add', {'id': t.id}) }}" class="btn btn-info btn-sm rounded-pill mx-2" style="background-color: transparent; color: red;">
+    <i class="fa-solid fa-heart"></i>
+</a>
+                                             </div>
+</div>
+                                        </div>
+                                </div>
+                                </div>
+                                {% if loop.index % 3 == 0 %}
+                                    </div>
+                                    <div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <style>
 
@@ -141,4 +209,16 @@
 
 </style>
 
+<script>
+    // Sélectionnez la div de la notification de succès
+    const successMessage = document.getElementById('notification-box');
+
+    // Vérifiez si la notification existe
+    if (successMessage) {
+        // Masquez la notification après 5 secondes (5000 millisecondes)
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+        }, 5000); // Modifier le délai selon vos besoins
+    }
+</script>
 {% endblock %}

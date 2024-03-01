@@ -45,4 +45,33 @@ class NutritionsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findAllSortedByCaloriesAsc()
+{
+    $results = $this->createQueryBuilder('r')
+        ->getQuery()
+        ->getResult();
+
+    // Sort the results by calories in ascending order
+    usort($results, function($a, $b) {
+        return $a->getCalories() - $b->getCalories();
+    });
+
+    return $results;
+}
+
+public function findAllSortedByCaloriesDesc()
+{
+    $results = $this->createQueryBuilder('r')
+        ->getQuery()
+        ->getResult();
+
+    // Sort the results by calories in descending order
+    usort($results, function($a, $b) {
+        return $b->getCalories() - $a->getCalories();
+    });
+
+    return $results;
+}
+
 }
