@@ -1,0 +1,45 @@
+{% extends 'FrontEnd/basef.html.twig' %}
+
+{% block body %}
+<section class="contact_section layout_padding-bottom">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Santé
+            </h2>
+        </div>
+        
+        <div class="form_container">
+            {{ form_start(form ,{'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                {{  form_errors(form.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.ingredient, {'attr': {'class': 'form-control'}}) }}
+                {{  form_errors(form.ingredient) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
+                {{  form_errors(form.category) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.nutrition, {'attr': {'class': 'form-control'}}) }}
+                {{  form_errors(form.nutrition) }}
+            </div>
+            <div class="btn_box">
+                <button>
+                    Enregistrer
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="img-box">
+            <img src="{{asset('/FrontEnd/images/contact-img.jpg')}}" alt="">
+        </div>
+    </div>
+</section>
+
+{% endblock %}

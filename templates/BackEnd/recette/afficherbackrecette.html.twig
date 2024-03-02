@@ -1,0 +1,94 @@
+{% extends 'BackEnd/baseEnd.html.twig' %}
+{% block title %} Sante 180° {% endblock %}
+{% block bd %} 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+    <style>
+        .btn-custom {
+            background-color: #66CDAA;
+            color: white;
+            border-color: #66CDAA;
+            width: 120px; /* largeur souhaitée */
+            height: 30px; /* hauteur souhaitée */
+        }
+
+        .btn-custom:hover {
+            background-color: #5cb85c;
+            border-color: #5cb85c;
+        }
+
+        .btn-custom:focus,
+        .btn-custom.focus {
+            box-shadow: 0 0 0 0.2rem rgba(76, 168, 75, 0.5);
+        }
+    </style>
+
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    
+
+                    <form action="{{ path('filtrage') }}" method="GET" class="my-4 border p-3 rounded bg-light shadow-sm">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div class="form-group me-3">
+                <label for="nom" class="fw-bold">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" placeholder="Enter Nom" value="{{ app.request.query.get('nom') }}">
+            </div>
+            <div class="form-group me-3">
+                <label for="ingredient" class="fw-bold">Ingredient</label>
+                <input type="text" class="form-control" id="ingredient" name="ingredient" placeholder="Enter Ingredient" value="{{ app.request.query.get('ingredient') }}">
+            </div>
+            <div class="form-group me-3">
+                <label for="category" class="fw-bold">Category</label>
+                <input type="text" class="form-control" id="category" name="category" placeholder="Enter Category" value="{{ app.request.query.get('category') }}">
+            </div>
+            <button type="submit" class="btn btn-success" name="recherche">Rechercher</button>
+        </div>
+    </form>
+
+                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>id recette</th>
+                                                    <th>category</th>
+                                                     <th>ingredient</th>
+                                                    <th>nom</th>
+                                                    <th>nutritions</th>
+                                                    <th>Action</th>
+                                                 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for t in response %}
+                                                <tr>
+                                                    <td>{{ t.id }}</td>
+                                                    <td>{{ t.category }}</td>
+                                    
+                                                    <td>{{ t.ingredient }}</td>
+                                                    <td>{{ t.nom}}</td>
+                                                    <td>{{ t.nutrition}}</td>
+                                                    
+                                                    <td>
+                                                      
+<a class="btn btn-primary btn-sm" href="{{ path('modifierRecette', {'id': t.id}) }}" style="background: transparent; width: 100%;">
+    <i class="fas fa-edit" style="color: blue;"></i>
+</a>
+                                                          <a class="btn btn-primary btn-sm" href="{{ path('supprimerRecette', {'id': t.id}) }}" style="background: transparent; width: 100%;"><i class='fas fa-trash-alt' style='color:red'></i></a>
+
+
+
+
+                                                    </td>
+                                                </tr>
+                                                
+                                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                
+
+                   
+
+{% endblock %}

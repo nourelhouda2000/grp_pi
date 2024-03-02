@@ -1,0 +1,45 @@
+{% extends 'FrontEnd/basef.html.twig' %}
+
+{% block title %}Favorite Recette{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-4 mb-5">Favorite Recette</h1>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+        {% if recette is empty %}
+            <p class="text-center">You have no favorite Recette yet.</p>
+        {% else %}
+            <div class="row">
+                {% for recetteItem in recette %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                         
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recetteItem.nom }}</h5>
+                                <p class="card-text">ingredient: {{ recetteItem.ingredient }} </p>
+                                <p class="card-text"> category: {{ recetteItem.category }}</p>
+                            </div>
+                            <div class="card-footer">
+                              
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+           <a href="{{ path('favorites_clear') }}" class="btn btn-warning">Clear All <i class="fas fa-trash"></i></a>
+
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}
