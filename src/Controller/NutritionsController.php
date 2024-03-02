@@ -48,7 +48,7 @@ class NutritionsController extends AbstractController
   public function afficher(NutritionsRepository $repo): Response
   {
       $resul= $repo->findAll();
-      return $this->render('nutritions/afficher.html.twig', [
+      return $this->render('nutritions/afficherbacknut.html.twig', [
           'response' => $resul,
       ]);
   }
@@ -56,7 +56,7 @@ class NutritionsController extends AbstractController
   public function afficherfront(NutritionsRepository $repo): Response
   {
       $resul= $repo->findAll(); // reccuperer
-      return $this->render('nutritions/afficher2.html.twig', [
+      return $this->render('nutritions/afficherfrontnut.html.twig', [
           'response' => $resul,
       ]);
   }
@@ -74,12 +74,12 @@ class NutritionsController extends AbstractController
         $em=$mr->getManager();
         $em->persist($Nt);//preparation
         $em->flush();// l'executions
-        //$flashy->sucess('Nnutrition ajouter aves succes','http://your-awesome-link.com');
+        
   
       
      return $this->redirectToRoute('afficher');
     }
-    return $this->render('nutritions/ajout.html.twig', [
+    return $this->render('nutritions/ajoutbacknut.html.twig', [
         'form' => $form->createView(),
     ]);
     }
@@ -124,7 +124,7 @@ class NutritionsController extends AbstractController
             return $this->redirectToRoute('afficher'); // Redirect to your list of students
         }
     
-        return $this->render('nutritions/ajout.html.twig',['form'=>$form->createView()]);
+        return $this->render('nutritions/ajoutbacknut.html.twig',['form'=>$form->createView()]);
   
     }
     #[Route('/trier2', name: 'trier2')]
@@ -147,7 +147,7 @@ class NutritionsController extends AbstractController
       }
       
       // Rendre le template avec les réclamations triées ou non triées
-      return $this->render('nutritions/afficher.html.twig', [
+      return $this->render('nutritions/afficherbacknut.html.twig', [
           'response' => $reclamations,
       ]);
   }

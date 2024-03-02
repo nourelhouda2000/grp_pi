@@ -29,7 +29,7 @@ class RecetteController extends AbstractController
     public function afficherRecette(RecetteRepository $repo): Response
     {
         $resul= $repo->findAll();
-        return $this->render('recette/afficherr.html.twig', [
+        return $this->render('recette/afficherbackrecette.html.twig', [
             'response' => $resul,
         ]);
     }
@@ -37,7 +37,7 @@ class RecetteController extends AbstractController
     public function afficherRecettefront(RecetteRepository $repo): Response
     {
         $resul= $repo->findAll();
-        return $this->render('recette/afficher2.html.twig', [
+        return $this->render('recette/afficherfrontrecette.html.twig', [
             'response' => $resul,
         ]);
     }
@@ -78,7 +78,7 @@ class RecetteController extends AbstractController
             return $this->redirectToRoute('afficherRecette');
         }
     
-        return $this->render('recette/ajoutr.html.twig', [
+        return $this->render('recette/ajoutrbackrecette.html.twig', [
             'form' => $form->createView(),
         ]);
     } */
@@ -100,7 +100,7 @@ class RecetteController extends AbstractController
         
        return $this->redirectToRoute('afficherRecette');
       }
-      return $this->render('recette/ajoutr.html.twig', [
+      return $this->render('recette/ajoutrbackrecette.html.twig', [
           'form' => $form->createView(),
       ]);
       }
@@ -141,7 +141,7 @@ class RecetteController extends AbstractController
           return $this->redirectToRoute('afficherRecette');
       }
 
-      return $this->render('recette/ajoutr.html.twig', [
+      return $this->render('recette/ajoutrbackrecette.html.twig', [
           'form' => $form->createView(),
       ]);
   } 
@@ -166,7 +166,7 @@ class RecetteController extends AbstractController
           return $this->redirectToRoute('afficherRecettefront');
       }
 
-      return $this->render('recette/ajoutr2.html.twig', [
+      return $this->render('recette/editrecettefront.html.twig', [
           'form' => $form->createView(),
       ]);
   } */
@@ -199,7 +199,7 @@ class RecetteController extends AbstractController
           return $this->redirectToRoute('afficherRecettefront');
       }
 
-      return $this->render('recette/ajoutr2.html.twig', [
+      return $this->render('recette/editrecettefront.html.twig', [
           'form' => $form->createView(),
       ]);
   }
@@ -225,7 +225,7 @@ class RecetteController extends AbstractController
       $resultats = $repository->rechercher($searchTerm);
   
       // Passer les résultats à votre vue Twig
-      return $this->render('recette/afficherr.html.twig', [
+      return $this->render('recette/afficherbackrecette.html.twig', [
         'response' => $resultats,
       ]);
   }
@@ -254,7 +254,7 @@ public function filtrage(RecetteRepository $repo, Request $request): Response
 
     dump($filteredProducts); // Debugging statement
 
-    return $this->render('recette/afficherr.html.twig', [
+    return $this->render('recette/afficherbackrecette.html.twig', [
         'response' => $filteredProducts,
     ]);
 }

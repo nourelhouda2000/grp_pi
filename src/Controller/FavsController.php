@@ -17,7 +17,7 @@ class FavsController extends AbstractController
         $favorites = $session->get("favorites", []);
         $recette = $repo->findBy(['id' => array_keys($favorites)]);
 
-        return $this->render('recette/favs.html.twig', [
+        return $this->render('recette/favsfrontrecette.html.twig', [
             'recette' => $recette,
         ]);
     }
